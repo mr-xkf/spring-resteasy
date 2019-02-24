@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="jquery-1.8.0.min.js"/>
+</head>
+<body>
+        <p>
+            值：<input type="text"   placeholder="请输入数字" onkeyup="value=value.replace(/[^\d^\.]+/g,'')" />
+        </p>
+        <p>
+            正则表达式:<input type="text" placeholder="请输入内容" onkeyup="value=value.replace(/\d{2,4}/,'')"/>
+        </p>
+        <form enctype="multipart/form-data" action="http://localhost:9091/xkf/api/fileInfo/upload" method="post"  onsubmit="">
+            <p>
+                上传:<input type="file"  name="file"/>
+                <input  type="submit" value="提交"/>
+            </p>
+        </form>
+        <p>
+        <input id="fileinfo" type="file" class="notFormFile" />
+        <button type="button" class="btnNotForm">上传4</button>
+        </p>
+
+<script >
+        $(".btnNotForm").click(function () {
+            alert("dsfdsf");
+            var formData = new FormData();//初始化一个FormData对象
+            formData.append("files", $(".notFormFile")[0].files[0]);//将文件塞入FormData
+            $.ajax({
+                url: "/Home/SaveFile2",
+                type: "POST",
+                data: formData,
+                processData: false,  // 告诉jQuery不要去处理发送的数据
+                contentType: false,   // 告诉jQuery不要去设置Content-Type请求头
+                success: function (responseText) {
+                    alert(responseText);
+                }
+            });
+        });
+
+
+ /*   debugger
+    var str = '<div class="item">{{test}}{{aaa}}{{bbb}}</div>'
+    let  text= str.match(/\{\{(.+?)\}\}/g);
+     document.body.innerHTML='<a href="javacript:viod()">'+text[0]+'</a>';*/
+
+   /* str.replace(/\{\{(.+?)\}\}/g, function (match, param, offset, string) {
+        document.write("match->" + match + "\tparam->" + param + "\toffset->" + offset + "\tstring->" + string+"\n");
+    })*/
+</script>
+</body>
+</html>
