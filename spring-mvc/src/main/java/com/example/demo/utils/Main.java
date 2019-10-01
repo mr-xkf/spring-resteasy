@@ -13,7 +13,7 @@ package com.example.demo.utils;
 import java.util.stream.Stream;
 
 /**
- * 〈一句话功能简述〉<br> 
+ * 〈一句话功能简述〉<br>
  * 〈〉
  *
  * @author 13235
@@ -24,8 +24,8 @@ public class Main {
 
     public static void main(String[] args) {
         Insertion<Integer> insertion = new Insertion<Integer>();
-        Integer[] nums=  new Integer[]{2, 3, 5, 2, 1, 6};
+        Integer[] nums = new Integer[]{2, 3, 5, 2, 1, 6};
         insertion.sort(nums);
-        Stream.of(nums).forEach(s-> System.out.print(s+"\t"));
+        Stream.of(nums).forEach(s -> System.out.print(s + "\t"));
     }
 }

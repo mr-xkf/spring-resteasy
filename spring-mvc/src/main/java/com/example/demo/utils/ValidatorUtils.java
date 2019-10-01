@@ -27,10 +27,12 @@ import java.util.Set;
  * @since 1.0.0
  */
 public class ValidatorUtils {
+
+
     private static Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
 
-    public static void validator(Object o,Class<?>...c) {
-        Set<ConstraintViolation<Object>> validate = validator.validate(o,c);
+    public static void validator(Object o, Class<?>... c) {
+        Set<ConstraintViolation<Object>> validate = validator.validate(o, c);
         if (!validate.isEmpty()) {
             Iterator<ConstraintViolation<Object>> iterator = validate.iterator();
             while (iterator.hasNext()) {
@@ -39,6 +41,4 @@ public class ValidatorUtils {
             }
         }
     }
-
-
 }

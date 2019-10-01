@@ -11,16 +11,16 @@
 package com.example.demo.controller;
 
 import com.example.demo.entity.User;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.connection.CorrelationData;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.UUID;
-
-import static com.example.demo.config.QueueConfig.HELLO_EXCHANGE;
-import static com.example.demo.config.QueueConfig.ROUTING_KEY;
 
 /**
  * 〈一句话功能简述〉<br>
@@ -31,6 +31,7 @@ import static com.example.demo.config.QueueConfig.ROUTING_KEY;
  * @since 1.0.0
  */
 @RestController
+@Slf4j
 public class MsgController {
 
     @Autowired
@@ -45,8 +46,11 @@ public class MsgController {
         user.setUserName("哈哈");
         user.setUid(27);
         user.setPassword("xdfdf");
-        rabbitTemplate.convertAndSend(HELLO_EXCHANGE, ROUTING_KEY, user,
+        rabbitTemplate.convertAndSend("helloExchange", "hello.a", user, message -> { message.getMessageProperties().setExpiration("5000");
+
+        return message;},
                 correlationData);
+        log.info("当前时间为："+ LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss:SSS")));
     }
 
 

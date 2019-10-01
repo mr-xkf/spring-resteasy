@@ -13,7 +13,12 @@ package com.example.demo.config;
 import org.jboss.resteasy.plugins.providers.multipart.InputPart;
 import org.springframework.stereotype.Component;
 
-import javax.servlet.*;
+import javax.servlet.Filter;
+import javax.servlet.FilterChain;
+import javax.servlet.FilterConfig;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
 import java.io.IOException;
 
 /**

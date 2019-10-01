@@ -10,15 +10,7 @@
 
 package com.example.demo.service.serviceImpl;
 
-import com.example.demo.config.QueueConfig;
-import com.example.demo.entity.User;
-import com.rabbitmq.client.Channel;
-import org.springframework.amqp.rabbit.annotation.*;
-import org.springframework.messaging.handler.annotation.Headers;
-import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Component;
-
-import java.util.Map;
 
 /**
  * 〈一句话功能简述〉<br>
@@ -31,7 +23,7 @@ import java.util.Map;
 @Component
 public class ReceiveMsgService {
 
-    @RabbitHandler
+   /* @RabbitHandler
     @RabbitListener(
             bindings = @QueueBinding(
                     exchange = @Exchange(value = "topic.exchange",  type = "topic"),
@@ -41,7 +33,7 @@ public class ReceiveMsgService {
     public void receiveMsg(@Headers Map<String,Object> headers, @Payload User msg, Channel channel) {
         headers.forEach((k, v) -> System.out.println("key:" + k + "value:" + v));
         System.out.println(msg.toString());
-    }
+    }*/
 
 
 }

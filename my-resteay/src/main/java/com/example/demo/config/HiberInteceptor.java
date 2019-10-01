@@ -29,6 +29,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.Objects;
+import java.util.concurrent.ExecutionException;
 
 /**
  * 〈一句话功能简述〉<br>
@@ -148,7 +149,13 @@ public class HiberInteceptor extends EmptyInterceptor {
         logOperate.setUpdateBy("admin");
         logOperate.setUpdateTime(new Date());
         LogService bean = (LogService) SpringContextUtil.getBean(LogService.class);
-        bean.editLog(logOperate);
+        try {
+            bean.editLog(logOperate);
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     /**

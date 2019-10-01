@@ -42,7 +42,6 @@ public class ReflectionUtils {
     }
 
 
-
     public static List<Map<String, Object>> compareObj2Obj(Object o, Object o2) {
         List<Map<String, Object>> list = new ArrayList<>();
         if (o == null || o2 == null) {

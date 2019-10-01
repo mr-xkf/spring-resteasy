@@ -3,6 +3,8 @@ package com.example.demo.service;
 import com.example.demo.domain.LogOperate;
 
 import java.util.List;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
 
 public interface LogService {
 
@@ -12,7 +14,7 @@ public interface LogService {
      *
      * @param opreateLog
      */
-    void editLog(LogOperate opreateLog);
+    Future<String> editLog(LogOperate opreateLog) throws ExecutionException, InterruptedException;
 
 
     /**

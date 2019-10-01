@@ -25,7 +25,7 @@ public abstract class Sort<T extends Comparable<T>> {
     protected boolean less(T v, T w) {
         return v.compareTo(w) < 0;
     }
-    
+
     protected void swap(T[] a, int i, int j) {
         T temp = a[i];
         a[i] = a[j];

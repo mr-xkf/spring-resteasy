@@ -10,11 +10,13 @@
 
 package com.example.demo.config;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.config.SimpleRabbitListenerContainerFactory;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.rabbit.listener.RabbitListenerContainerFactory;
 import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
@@ -28,10 +30,11 @@ import org.springframework.context.annotation.Scope;
  * @since 1.0.0
  */
 @Configuration
+@Slf4j
 public class RabitMqConfig {
 
     @Bean
-    @Scope(value = "prototype")
+    @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
     public RabbitTemplate rabbitTemplate(ConnectionFactory connectionFactory) {
         RabbitTemplate rabbitTemplate = new RabbitTemplate();
         rabbitTemplate.setConnectionFactory(connectionFactory);
@@ -44,6 +47,7 @@ public class RabitMqConfig {
         SimpleRabbitListenerContainerFactory factory = new SimpleRabbitListenerContainerFactory();
         factory.setConnectionFactory(connectionFactory);
         factory.setMessageConverter(new Jackson2JsonMessageConverter());
+        factory.setErrorHandler(throwable -> log.error("消息默认异常处理!"));
         return factory;
     }
 

@@ -10,6 +10,8 @@
 
 package com.example.demo.config;
 
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.aop.interceptor.AsyncUncaughtExceptionHandler;
 import org.springframework.scheduling.annotation.AsyncConfigurer;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Component;
@@ -26,6 +28,7 @@ import java.util.concurrent.ThreadPoolExecutor;
  * @since 1.0.0
  */
 @Component
+@Slf4j
 public class AsyncTaskConfig  implements AsyncConfigurer {
 
     @Override
@@ -44,5 +47,10 @@ public class AsyncTaskConfig  implements AsyncConfigurer {
         return executor;
     }
 
-
+    @Override
+    public AsyncUncaughtExceptionHandler getAsyncUncaughtExceptionHandler() {
+        return (throwable, method, objects) -> {
+       log.error("异步执行发生错误！",throwable.getMessage());
+        };
+    }
 }

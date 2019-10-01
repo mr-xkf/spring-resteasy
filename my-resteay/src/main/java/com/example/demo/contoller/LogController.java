@@ -26,6 +26,8 @@ import org.springframework.util.Assert;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
 
 /**
  * 〈一句话功能简述〉<br>
@@ -59,8 +61,22 @@ public class LogController {
     @Path("/save")
     @POST
     @ApiOperation(value = "保存日志信息")
-    public CommonResult saveLog(LogOperate opreateLog) {
-        logService.editLog(opreateLog);
+    public CommonResult saveLog(LogOperate opreateLog)  {
+
+        String s1="";
+        try {
+            Future<String>  s = logService.editLog(opreateLog);
+            // s1= s.get();
+            System.out.println("值为:"+s1);
+        } catch (ExecutionException e) {
+            log.error("线程执行错误。。。。");
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            log.error("线程被打扰错误返回");
+           Thread.currentThread().interrupt();
+            e.printStackTrace();
+        }
+        System.out.println("----------->"+s1);
         return CommonResult.create("保存成功！");
     }
 

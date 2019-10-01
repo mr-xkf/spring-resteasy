@@ -60,7 +60,7 @@ public class ExportUtils {
                 try {
                     String str = declaredFields[j].getName().substring(0, 1).toUpperCase() + declaredFields[j].getName().substring(1);
                     System.out.println(str);
-                    Method m = cls.getDeclaredMethod("get"+str);
+                    Method m = cls.getDeclaredMethod("get" + str);
                     Object invoke = m.invoke(data.get(i));
                     String s;
                     if (ClassUtils.isPrimitiveOrWrapper(invoke.getClass())) {
@@ -68,7 +68,7 @@ public class ExportUtils {
                     } else if (invoke instanceof Date) {
                         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                         s = simpleDateFormat.format((Date) invoke);
-                    }else{
+                    } else {
                         s = (String) invoke;
                     }
                     cell.setCellValue(s);

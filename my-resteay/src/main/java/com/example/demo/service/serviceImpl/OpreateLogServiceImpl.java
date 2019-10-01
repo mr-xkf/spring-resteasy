@@ -13,6 +13,7 @@ package com.example.demo.service.serviceImpl;
 import com.example.demo.domain.LogOperate;
 import com.example.demo.repo.LogRepo;
 import com.example.demo.service.LogService;
+import com.example.demo.thread.OrderThreadPool;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,6 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import java.util.List;
+import java.util.concurrent.Future;
 
 /**
  * 〈一句话功能简述〉<br>
@@ -33,11 +35,20 @@ import java.util.List;
 @Slf4j
 public class OpreateLogServiceImpl implements LogService {
 
+    @Autowired
+    private OrderThreadPool orderThreadPool;
+
     @Override
     //@LogMark(operatType = LogMark.LogType.EDIT)
-    @Transactional(rollbackFor = RuntimeException.class)
-    public void editLog(LogOperate opreateLog) {
+    @Transactional(rollbackFor = Exception.class)
+    public Future<String> editLog(LogOperate opreateLog) {
         logRepo.save(opreateLog);
+        Future<String> submit = orderThreadPool.submit(() ->{
+            log.error("哈哈来了");
+            Thread.sleep(5000);
+            int i = 1 / 0;
+            return  "成功！";});
+                return submit;
     }
 
     @Override
